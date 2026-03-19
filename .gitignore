@@ -1,0 +1,11 @@
+# Visual Studio
+.vs/
+backend/**/.vs/
+
+# ASP.NET
+bin/
+obj/
+
+# Next.js
+.next/
+node_modules/
