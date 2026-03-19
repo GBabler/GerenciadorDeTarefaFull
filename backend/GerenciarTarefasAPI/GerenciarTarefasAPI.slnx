@@ -1,6 +1,0 @@
-<Solution>
-  <Project Path="GerenciarTarefas.Application/GerenciarTarefas.Application.csproj" Id="72ea4ff2-dc26-416a-bf72-75f31abd3307" />
-  <Project Path="GerenciarTarefas.Domain/GerenciarTarefas.Domain.csproj" Id="205a838d-bdd5-4d18-b22f-029e97142ad4" />
-  <Project Path="GerenciarTarefas.Infrastructure/GerenciarTarefas.Infrastructure.csproj" Id="8d1870bd-5c34-4960-ba89-1d66632e35d0" />
-  <Project Path="GerenciarTarefasAPI/GerenciarTarefasAPI.csproj" />
-</Solution>

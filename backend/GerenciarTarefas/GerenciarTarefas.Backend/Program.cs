@@ -1,5 +1,5 @@
 
-namespace GerenciarTarefasAPI
+namespace GerenciarTarefas.Backend
 {
     public class Program
     {
