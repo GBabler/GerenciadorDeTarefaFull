@@ -12,14 +12,14 @@ namespace GerenciarTarefas.Presentation
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // ✅ Banco de dados
+            //Banco de dados,eu defino que o EF Core vai usar o SQL Server e pego a string de conexão
             builder.Services.AddDbContext<TarefaContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            // ✅ Repositório
+            //Repositório
             builder.Services.AddScoped<ITarefaRepository, TarefaRepository>();
 
-            // ✅ Use Cases
+            //Use Cases
             builder.Services.AddScoped<CreateTarefaUseCase>();
             builder.Services.AddScoped<GetAllTarefasUseCase>();
             builder.Services.AddScoped<GetTarefaByIdUseCase>();
