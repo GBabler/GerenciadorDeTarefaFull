@@ -1,11 +1,6 @@
 ﻿using GerenciarTarefas.Application.DTOs;
 using GerenciarTarefas.Application.Interfaces;
 using GerenciarTarefas.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GerenciarTarefas.Application.UseCases;
 
@@ -20,6 +15,8 @@ public class UpdateTarefaUseCase : IUpdateTarefaUseCase
 
     public async Task ExecuteAsync(int id, UpdateTarefaDto dto)
     {
+        ValidarDto(dto); // ← adiciona aqui
+
         var tarefa = await _repository.ObterPorIdAsync(id);
 
         if (tarefa is null)
@@ -29,5 +26,17 @@ public class UpdateTarefaUseCase : IUpdateTarefaUseCase
         tarefa.AtualizarStatus(dto.Status);
 
         await _repository.AtualizarAsync(tarefa);
+    }
+
+    private void ValidarDto(UpdateTarefaDto dto)
+    {
+        if (string.IsNullOrWhiteSpace(dto.Titulo))
+            throw new ArgumentException("Título é obrigatório");
+
+        if (dto.Titulo.Length > 100)
+            throw new ArgumentException("Título deve ter no máximo 100 caracteres");
+
+        if (dto.Descricao?.Length > 500)
+            throw new ArgumentException("Descrição deve ter no máximo 500 caracteres");
     }
 }

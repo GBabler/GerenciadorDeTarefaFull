@@ -32,6 +32,18 @@ namespace GerenciarTarefas.Presentation
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+
+            //habilita a porta 3000 para o frontend acessar a API
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend", policy =>
+                {
+                    policy.WithOrigins("http://localhost:3000")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
@@ -41,6 +53,8 @@ namespace GerenciarTarefas.Presentation
             }
 
             app.UseHttpsRedirection();
+           //
+            app.UseCors("AllowFrontend");
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseAuthorization();
             app.MapControllers();

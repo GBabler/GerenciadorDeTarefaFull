@@ -1,65 +1,100 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useState } from "react";
+import { Tarefa, CreateTarefaDto, UpdateTarefaDto, StatusTarefa } from "./types/tarefa";
+import { getTarefas, createTarefa, updateTarefa, deleteTarefa } from "./services/tarefaService";
+import TarefaCard from "./components/TarefaCard";
+import TarefaForm from "./components/TarefaForm";
+import FiltroStatus from "./components/FiltroStatus";
 
 export default function Home() {
+  const [tarefas, setTarefas] = useState<Tarefa[]>([]);
+  const [filtro, setFiltro] = useState<StatusTarefa | null>(null);
+  const [tarefaParaEditar, setTarefaParaEditar] = useState<Tarefa | undefined>(undefined);
+  const [mostrarForm, setMostrarForm] = useState(false);
+  const [carregando, setCarregando] = useState(true);
+
+  useEffect(() => {
+    carregarTarefas();
+  }, []);
+
+  async function carregarTarefas() {
+    setCarregando(true);
+    const dados = await getTarefas();
+    setTarefas(dados);
+    setCarregando(false);
+  }
+
+  async function handleSalvar(dto: CreateTarefaDto | UpdateTarefaDto) {
+    if (tarefaParaEditar) {
+      await updateTarefa(tarefaParaEditar.id, dto as UpdateTarefaDto);
+    } else {
+      await createTarefa(dto as CreateTarefaDto);
+    }
+    setMostrarForm(false);
+    setTarefaParaEditar(undefined);
+    await carregarTarefas();
+  }
+
+  async function handleDeletar(id: number) {
+    if (confirm("Deseja realmente deletar esta tarefa?")) {
+      await deleteTarefa(id);
+      await carregarTarefas();
+    }
+  }
+
+  function handleEditar(tarefa: Tarefa) {
+    setTarefaParaEditar(tarefa);
+    setMostrarForm(true);
+  }
+
+  function handleNovaTarefa() {
+    setTarefaParaEditar(undefined);
+    setMostrarForm(true);
+  }
+
+  function handleCancelar() {
+    setTarefaParaEditar(undefined);
+    setMostrarForm(false);
+  }
+
+  const tarefasFiltradas = filtro === null
+    ? tarefas
+    : tarefas.filter(t => t.status === filtro);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <main className="container">
+      <h1>Gerenciador de Tarefas</h1>
+
+      <div className="toolbar">
+        <FiltroStatus filtroAtivo={filtro} onChange={setFiltro} />
+        <button className="btn-nova" onClick={handleNovaTarefa}>+ Nova Tarefa</button>
+      </div>
+
+      {mostrarForm && (
+        <TarefaForm
+          tarefaParaEditar={tarefaParaEditar}
+          onSalvar={handleSalvar}
+          onCancelar={handleCancelar}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+      )}
+
+      {carregando ? (
+        <p className="mensagem">Carregando tarefas...</p>
+      ) : tarefasFiltradas.length === 0 ? (
+        <p className="mensagem">Nenhuma tarefa encontrada.</p>
+      ) : (
+        <div className="lista">
+          {tarefasFiltradas.map(tarefa => (
+            <TarefaCard
+              key={tarefa.id}
+              tarefa={tarefa}
+              onEditar={handleEditar}
+              onDeletar={handleDeletar}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          ))}
         </div>
-      </main>
-    </div>
+      )}
+    </main>
   );
 }

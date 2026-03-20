@@ -2,11 +2,6 @@
 using GerenciarTarefas.Application.Interfaces;
 using GerenciarTarefas.Domain.Entities;
 using GerenciarTarefas.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GerenciarTarefas.Application.UseCases;
 
@@ -21,11 +16,23 @@ public class CreateTarefaUseCase : ICreateTarefaUseCase
 
     public async Task<TarefaResponseDto> ExecuteAsync(CreateTarefaDto dto)
     {
+        ValidarDto(dto); // ← adiciona aqui
+
         var tarefa = new Tarefa(dto.Titulo, dto.Descricao);
-
         await _repository.CriarAsync(tarefa);
-
         return MapToResponseDto(tarefa);
+    }
+
+    private void ValidarDto(CreateTarefaDto dto)
+    {
+        if (string.IsNullOrWhiteSpace(dto.Titulo))
+            throw new ArgumentException("Título é obrigatório");
+
+        if (dto.Titulo.Length > 100)
+            throw new ArgumentException("Título deve ter no máximo 100 caracteres");
+
+        if (dto.Descricao?.Length > 500)
+            throw new ArgumentException("Descrição deve ter no máximo 500 caracteres");
     }
 
     private TarefaResponseDto MapToResponseDto(Tarefa tarefa)

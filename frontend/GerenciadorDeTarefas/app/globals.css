@@ -1,26 +1,249 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  background: #f3f4f6;
+  color: #1a1a1a;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.container h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1e3a5f;
+}
+
+/* TOOLBAR */
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* FILTRO */
+.filtro {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filtro button {
+  padding: 0.4rem 1rem;
+  border: 1px solid #d1d5db;
+  background: white;
+  cursor: pointer;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.filtro button:hover {
+  background: #e5e7eb;
+}
+
+.filtro button.ativo {
+  background: #1e3a5f;
+  color: white;
+  border-color: #1e3a5f;
+}
+
+/* BOTAO NOVA TAREFA */
+.btn-nova {
+  padding: 0.5rem 1.2rem;
+  background: #1e3a5f;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.btn-nova:hover {
+  background: #2563eb;
+}
+
+/* FORM */
+.form {
+  background: white;
+  border: 1px solid #e5e7eb;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+}
+
+.form h2 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #1e3a5f;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  color: #374151;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  font-size: 0.9rem;
+  font-family: Arial, sans-serif;
+  border-radius: 4px;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #2563eb;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.form-actions button {
+  padding: 0.5rem 1.2rem;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border-radius: 4px;
+}
+
+.form-actions button[type="submit"] {
+  background: #1e3a5f;
+  color: white;
+}
+
+.form-actions button[type="button"] {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+/* LISTA */
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* CARD */
+.card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  padding: 1.2rem;
+  border-radius: 4px;
+  border-left: 4px solid #1e3a5f;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+  gap: 1rem;
+}
+
+.card-header h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.card-descricao {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 0.75rem;
+}
+
+.card-footer {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.card-footer small {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.card-actions button {
+  padding: 0.3rem 0.8rem;
+  border: none;
+  cursor: pointer;
+  font-size: 0.82rem;
+  border-radius: 4px;
+}
+
+.card-actions button:first-child {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.card-actions button.btn-deletar {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* STATUS */
+.status {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.status-pendente {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.status-progresso {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.status-concluida {
+  background: #d1fae5;
+  color: #059669;
+}
+
+/* MENSAGEM */
+.mensagem {
+  text-align: center;
+  color: #6b7280;
+  padding: 2rem;
+  font-size: 0.95rem;
 }
