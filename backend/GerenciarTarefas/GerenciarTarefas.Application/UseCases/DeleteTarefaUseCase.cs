@@ -1,13 +1,14 @@
-﻿using System;
+﻿using GerenciarTarefas.Application.Interfaces;
+using GerenciarTarefas.Domain.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GerenciarTarefas.Domain.Interfaces;
 
 namespace GerenciarTarefas.Application.UseCases;
 
-public class DeleteTarefaUseCase
+public class DeleteTarefaUseCase : IDeleteTarefaUseCase
 {
     private readonly ITarefaRepository _repository;
 

@@ -1,7 +1,9 @@
+using GerenciarTarefas.Application.Interfaces;
 using GerenciarTarefas.Application.UseCases;
 using GerenciarTarefas.Domain.Interfaces;
 using GerenciarTarefas.Infrastructure.Context;
 using GerenciarTarefas.Infrastructure.Repositories;
+using GerenciarTarefas.Presentation.Middlewares;
 using Microsoft.EntityFrameworkCore;
 
 namespace GerenciarTarefas.Presentation
@@ -20,11 +22,11 @@ namespace GerenciarTarefas.Presentation
             builder.Services.AddScoped<ITarefaRepository, TarefaRepository>();
 
             //Use Cases
-            builder.Services.AddScoped<CreateTarefaUseCase>();
-            builder.Services.AddScoped<GetAllTarefasUseCase>();
-            builder.Services.AddScoped<GetTarefaByIdUseCase>();
-            builder.Services.AddScoped<UpdateTarefaUseCase>();
-            builder.Services.AddScoped<DeleteTarefaUseCase>();
+            builder.Services.AddScoped<ICreateTarefaUseCase, CreateTarefaUseCase>();
+            builder.Services.AddScoped<IGetAllTarefasUseCase, GetAllTarefasUseCase>();
+            builder.Services.AddScoped<IGetTarefaByIdUseCase, GetTarefaByIdUseCase>();
+            builder.Services.AddScoped<IUpdateTarefaUseCase, UpdateTarefaUseCase>();
+            builder.Services.AddScoped<IDeleteTarefaUseCase, DeleteTarefaUseCase>();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
@@ -39,6 +41,7 @@ namespace GerenciarTarefas.Presentation
             }
 
             app.UseHttpsRedirection();
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseAuthorization();
             app.MapControllers();
             app.Run();

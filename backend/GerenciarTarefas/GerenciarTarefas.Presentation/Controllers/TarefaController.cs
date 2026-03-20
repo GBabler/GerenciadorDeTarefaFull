@@ -1,5 +1,5 @@
 ﻿using GerenciarTarefas.Application.DTOs;
-using GerenciarTarefas.Application.UseCases;
+using GerenciarTarefas.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciarTarefas.Presentation.Controllers;
@@ -8,18 +8,18 @@ namespace GerenciarTarefas.Presentation.Controllers;
 [Route("api/[controller]")]
 public class TarefaController : ControllerBase
 {
-    private readonly CreateTarefaUseCase _createTarefaUseCase;
-    private readonly GetAllTarefasUseCase _getAllTarefasUseCase;
-    private readonly GetTarefaByIdUseCase _getTarefaByIdUseCase;
-    private readonly UpdateTarefaUseCase _updateTarefaUseCase;
-    private readonly DeleteTarefaUseCase _deleteTarefaUseCase;
+    private readonly ICreateTarefaUseCase _createTarefaUseCase;
+    private readonly IGetAllTarefasUseCase _getAllTarefasUseCase;
+    private readonly IGetTarefaByIdUseCase _getTarefaByIdUseCase;
+    private readonly IUpdateTarefaUseCase _updateTarefaUseCase;
+    private readonly IDeleteTarefaUseCase _deleteTarefaUseCase;
 
     public TarefaController(
-        CreateTarefaUseCase createTarefaUseCase,
-        GetAllTarefasUseCase getAllTarefasUseCase,
-        GetTarefaByIdUseCase getTarefaByIdUseCase,
-        UpdateTarefaUseCase updateTarefaUseCase,
-        DeleteTarefaUseCase deleteTarefaUseCase)
+        ICreateTarefaUseCase createTarefaUseCase,
+        IGetAllTarefasUseCase getAllTarefasUseCase,
+        IGetTarefaByIdUseCase getTarefaByIdUseCase,
+        IUpdateTarefaUseCase updateTarefaUseCase,
+        IDeleteTarefaUseCase deleteTarefaUseCase)
     {
         _createTarefaUseCase = createTarefaUseCase;
         _getAllTarefasUseCase = getAllTarefasUseCase;

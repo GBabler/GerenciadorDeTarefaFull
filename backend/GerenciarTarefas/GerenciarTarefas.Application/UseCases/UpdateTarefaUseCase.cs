@@ -1,14 +1,15 @@
-﻿using System;
+﻿using GerenciarTarefas.Application.DTOs;
+using GerenciarTarefas.Application.Interfaces;
+using GerenciarTarefas.Domain.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GerenciarTarefas.Application.DTOs;
-using GerenciarTarefas.Domain.Interfaces;
 
 namespace GerenciarTarefas.Application.UseCases;
 
-public class UpdateTarefaUseCase
+public class UpdateTarefaUseCase : IUpdateTarefaUseCase
 {
     private readonly ITarefaRepository _repository;
 

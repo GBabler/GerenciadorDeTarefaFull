@@ -32,9 +32,17 @@ public class Tarefa
 
     public void AtualizarStatus(StatusTarefa status)
     {
-        Status = status;
-
         if (status == StatusTarefa.Concluida)
-            DataConclusao = DateTime.UtcNow;
+        {
+            var dataConclusao = DateTime.UtcNow;
+
+            if (dataConclusao < DataCriacao)
+                throw new ArgumentException(
+                    "Data de conclusão não pode ser anterior à data de criação");
+
+            DataConclusao = dataConclusao;
+        }
+
+        Status = status;
     }
 }
