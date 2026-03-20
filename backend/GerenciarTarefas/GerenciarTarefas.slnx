@@ -1,3 +1,6 @@
 <Solution>
-  <Project Path="GerenciarTarefas.Backend/GerenciarTarefas.Backend.csproj" />
+  <Project Path="GerenciarTarefas.Application/GerenciarTarefas.Application.csproj" />
+  <Project Path="GerenciarTarefas.Domain/GerenciarTarefas.Domain.csproj" />
+  <Project Path="GerenciarTarefas.Infrastructure/GerenciarTarefas.Infrastructure.csproj" />
+  <Project Path="GerenciarTarefas.Presentation/GerenciarTarefas.Presentation.csproj" />
 </Solution>

@@ -1,11 +1,31 @@
 # Visual Studio
 .vs/
-backend/**/.vs/
+*.user
+*.suo
 
-# ASP.NET
-bin/
-obj/
+# ASP.NET Core
+**/bin/
+**/obj/
+
+# Configurações sensíveis
+**/appsettings.json
+**/appsettings.*.json
 
 # Next.js
 .next/
 node_modules/
+
+# Variáveis de ambiente
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Sistema Operacional
+.DS_Store
+Thumbs.db

@@ -1,0 +1,6 @@
+@GerenciarTarefas.Presentation_HostAddress = http://localhost:5205
+
+GET {{GerenciarTarefas.Presentation_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
