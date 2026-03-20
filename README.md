@@ -1,12 +1,12 @@
 # 📋 GerenciadorDeTarefaFull
 
-## 📌 Proposta do Projeto
+## Proposta do Projeto
 
 API REST de Gerenciamento de Tarefas com interface visual para criação, edição, exclusão e filtragem de tarefas por status. O projeto foi desenvolvido seguindo **Arquitetura em Camadas** com os princípios da **Clean Architecture**, **Clean Code** e **SOLID**.
 
 ---
 
-## ✅ O que o projeto oferece
+## O que o projeto oferece
 
 - Criar, editar, listar e excluir tarefas
 - Filtrar tarefas por status: Pendente, Em Progresso e Concluída
@@ -16,7 +16,7 @@ API REST de Gerenciamento de Tarefas com interface visual para criação, ediç�
 
 ---
 
-## 🖥️ Tecnologias — Backend
+## Tecnologias — Backend
 
 - .NET 8
 - ASP.NET Core Web API
@@ -36,7 +36,7 @@ API REST de Gerenciamento de Tarefas com interface visual para criação, ediç�
 
 ---
 
-## 🌐 Tecnologias — Frontend
+## Tecnologias — Frontend
 
 - Next.js 16
 - React 19
@@ -45,7 +45,7 @@ API REST de Gerenciamento de Tarefas com interface visual para criação, ediç�
 
 ---
 
-## 🔧 Restaurando o Backend
+## Restaurando o Backend
 
 ### Pré-requisitos
 
@@ -103,7 +103,7 @@ dotnet run --project GerenciarTarefas.Presentation
 
 ---
 
-## 🌍 Restaurando o Frontend
+## Restaurando o Frontend
 
 ### Pré-requisitos
 
@@ -133,7 +133,7 @@ npm run dev
 
 ---
 
-## 🔗 Acessos
+## Acessos
 
 > As portas podem variar de acordo com a máquina. Verifique a porta exibida no terminal ao iniciar cada projeto.
 
